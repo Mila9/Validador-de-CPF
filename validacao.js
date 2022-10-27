@@ -32,7 +32,9 @@ const handleCpfInput = (event) => {
   else {
     erroInput.style.display = "block";
     inputCpf.style.borderBottom = "1px solid red";
-  }
+    }
+    const maskedCpf = mascaraCpf(event.target.value);
+    event.target.value = maskedCpf;
 
 };
 
@@ -60,3 +62,15 @@ function validaCPF(cpf) {
   if (resto != parseInt(cpf.substring(10, 11))) return false;
   return true;
 }
+
+const mascaraCpf = (cpf) => {
+    return cpf
+      ? cpf
+          .replace(/\D/g, "")
+          .replace(/(\d{3})(\d)/, "$1.$2")
+          .replace(/(\d{3})(\d)/, "$1.$2")
+          .replace(/(\d{3})(\d{1,2})/, "$1-$2")
+          .replace(/(-\d{2})\d+?$/, "$1")
+      : "";
+  };
+  
